@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Sarasi</title>
+<meta name="description" content="Sarasi. UCLA student obsessed with cool products and deciphering the data behind big problems.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-8 -6 70 84'%3E%3Cg fill='none' stroke='%23000000' stroke-width='9' stroke-linecap='round'%3E%3Cpath d='M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z'/%3E%3Cpath d='M27 23 C 26.5 30, 27.5 38, 26.8 46'/%3E%3Cpath d='M26.8 32 C 22 36, 18 40, 15 45'/%3E%3Cpath d='M27 32 C 32 36, 36 40, 39 45'/%3E%3Cpath d='M26.8 46 C 23 53, 20 59, 17.5 66'/%3E%3Cpath d='M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Newsreader:ital,opsz,wght@1,6..72,400;1,6..72,500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F6F7F1;
+    --ink: #1E211A;
+    --muted: #737B68;
+    --line: #DFE4D4;
+    --accent: #5F7350;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Instrument Sans', -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 88px 24px 100px;
+  }
+
+  /* ---------- intro ---------- */
+
+  h1 {
+    font-size: clamp(28px, 6vw, 36px);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+
+  .circled {
+    position: relative;
+    display: inline-block;
+    padding: 0 6px;
+  }
+
+  .circled svg {
+    position: absolute;
+    inset: -10px -12px;
+    width: calc(100% + 24px);
+    height: calc(100% + 20px);
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .circled svg path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: scribble 0.9s ease-out 0.7s forwards;
+  }
+
+  @keyframes scribble {
+    to { stroke-dashoffset: 0; }
+  }
+
+  .intro {
+    font-size: 18px;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  .intro em {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.08em;
+    color: var(--ink);
+  }
+
+  .squig {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='7' viewBox='0 0 40 7'%3E%3Cpath d='M1 4.5 Q 6 1, 11 4.5 T 21 4.5 T 31 4.5 T 41 4.5' fill='none' stroke='%235F7350' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-position: 0 100%;
+    background-size: 40px 7px;
+    padding-bottom: 5px;
+  }
+
+  .spike {
+    margin-top: 14px;
+    font-size: 15.5px;
+    color: var(--muted);
+    max-width: 60ch;
+  }
+
+  .spike .lead {
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.12em;
+    color: var(--accent);
+    margin-right: 4px;
+  }
+
+  /* ---------- layout ---------- */
+
+  .layout {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+
+  section { margin-top: 52px; }
+
+  .label {
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 18px;
+  }
+
+  .label::after {
+    content: '';
+    flex: 1;
+    height: 7px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M0 4 q 15 -3 30 0 t 30 0.5 t 30 -1 t 30 0.5' fill='none' stroke='%23D3DAC5' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 120px 7px;
+    background-position: 0 center;
+  }
+
+  .item {
+    margin-bottom: 22px;
+    position: relative;
+    transition: transform 0.18s ease;
+  }
+
+  .item:last-child { margin-bottom: 0; }
+
+  .item:hover { transform: rotate(-0.5deg) translateX(2px); }
+  .item:nth-child(odd):hover { transform: rotate(0.5deg) translateX(2px); }
+
+  .role {
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .role .at {
+    color: var(--muted);
+    font-weight: 400;
+    background-image: linear-gradient(color-mix(in srgb, var(--accent) 14%, transparent), color-mix(in srgb, var(--accent) 14%, transparent));
+    background-repeat: no-repeat;
+    background-size: 0% 60%;
+    background-position: 0 70%;
+    transition: background-size 0.25s ease;
+    border-radius: 2px;
+  }
+
+  .item:hover .role .at { background-size: 100% 60%; }
+
+  .item p {
+    color: var(--muted);
+    margin-top: 3px;
+    font-size: 15px;
+    max-width: 58ch;
+  }
+
+  .item a, .role a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1.5px solid color-mix(in srgb, var(--accent) 45%, transparent);
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .item a:hover, .item a:focus-visible,
+  .role a:hover, .role a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .doodle {
+    width: 18px;
+    height: 18px;
+    overflow: visible;
+    flex-shrink: 0;
+  }
+
+  .doodle path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  section:hover .doodle { animation: wiggle 0.5s ease; }
+
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-12deg); }
+    75% { transform: rotate(12deg); }
+  }
+
+  /* ---------- off the clock: the performer ---------- */
+
+  .stage-box { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+
+  .stage {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    display: block;
+  }
+
+  .stage .draw {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .stage .prop-line {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .caption {
+    margin-top: 6px;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+
+  .caption .act-name { color: var(--accent); }
+
+  .hobby-fallback { display: none; }
+
+  /* scene props fade in with their act */
+  .stage .prop { opacity: 0; transition: opacity 0.3s ease; }
+  .act-run .prop-track,
+  .act-climb .prop-rock,
+  .act-pickle .prop-net,
+  .act-pickle .prop-ball,
+  .act-thrift .prop-rack { opacity: 1; }
+
+  /* one figure per act; limb rotations are SVG-native so joints stay glued */
+  .figv { visibility: hidden; }
+  .act-run .figv-run,
+  .act-hike .figv-hike,
+  .act-climb .figv-climb,
+  .act-pickle .figv-pickle,
+  .act-thrift .figv-thrift { visibility: visible; }
+
+  /* movement across the stage (translation only) */
+  .run-move { animation: dash 2.6s linear infinite; }
+
+  @keyframes dash {
+    0%   { transform: translateX(-95px); }
+    100% { transform: translateX(150px); }
+  }
+
+  .hike-move { animation: trudge 8s linear infinite; }
+
+  @keyframes trudge {
+    0%   { transform: translateX(-95px); }
+    100% { transform: translateX(150px); }
+  }
+
+  .hike-bob { animation: hikeBob 0.7s ease-in-out infinite; }
+
+  @keyframes hikeBob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(1.6px); }
+  }
+
+  .climb-move { animation: scramble 4.5s ease-in-out infinite; }
+
+  @keyframes scramble {
+    0%   { transform: translate(30px, 22px); opacity: 1; }
+    88%  { transform: translate(96px, -28px); opacity: 1; }
+    94%  { transform: translate(96px, -28px); opacity: 0; }
+    100% { transform: translate(30px, 22px); opacity: 0; }
+  }
+
+  .pickle-bob { animation: ready 1.5s ease-in-out infinite; }
+
+  @keyframes ready {
+    0%, 55%, 100% { transform: translateY(0); }
+    70% { transform: translateY(-3px); }
+  }
+
+  .act-pickle .prop-ball { animation: rally 1.5s ease-in-out infinite; }
+
+  @keyframes rally {
+    0%   { transform: translate(120px, -14px); }
+    35%  { transform: translate(55px, 16px); }
+    70%  { transform: translate(12px, 14px); }
+    80%  { transform: translate(45px, -16px); }
+    100% { transform: translate(120px, -14px); }
+  }
+
+  /* ---------- footer ---------- */
+
+  footer {
+    margin-top: 80px;
+    padding-top: 28px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 24px;
+    font-size: 15px;
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 7px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='7' viewBox='0 0 120 7'%3E%3Cpath d='M0 4 q 15 -3 30 0 t 30 0.5 t 30 -1 t 30 0.5' fill='none' stroke='%23D3DAC5' stroke-width='1.8' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: repeat-x;
+    background-size: 120px 7px;
+  }
+
+  footer a {
+    color: var(--muted);
+    text-decoration: none;
+    border-bottom: 1.5px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  footer a:hover, footer a:focus-visible {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .copyright {
+    margin-left: auto;
+    font-family: 'Space Mono', monospace;
+    font-size: 11.5px;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+
+  a:focus-visible, .stage-box:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- entrance ---------- */
+
+  .fade {
+    opacity: 0;
+    transform: translateY(8px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: none; }
+  }
+
+  .fade:nth-child(1) { animation-delay: 0.05s; }
+  .fade:nth-child(2) { animation-delay: 0.12s; }
+  .fade:nth-child(3) { animation-delay: 0.19s; }
+  .fade:nth-child(4) { animation-delay: 0.26s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade { animation: none; opacity: 1; transform: none; }
+    .stage *, .stage { animation: none !important; }
+    .stage-box { display: none; }
+    .hobby-fallback { display: block; color: var(--muted); font-size: 15px; }
+    .circled svg path { animation: none; stroke-dashoffset: 0; }
+    section:hover .doodle { animation: none; }
+    .item:hover { transform: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  @media (max-width: 720px) {
+    .layout { display: block; }
+    .wrap { padding-top: 60px; }
+    .copyright { margin-left: 0; width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="fade">
+    <h1>Hey! I'm <span class="circled">Sarasi<svg viewBox="0 0 140 54" aria-hidden="true"><path d="M12 27 C 8 12, 40 4, 74 5 C 108 6, 134 12, 132 26 C 130 41, 100 50, 66 49 C 34 48, 10 42, 14 25 C 16 17, 32 9, 52 7"/></svg></span></h1>
+    <p class="intro">I'm a student at UCLA, obsessed with <em class="squig">cool products</em> &amp; deciphering the <em class="squig">data</em> behind big problems.</p>
+    <p class="spike"><span class="lead">My spike:</span> translating between the data and the feeling. Numbers tell you what's happening. People tell you why.</p>
+  </header>
+
+  <div class="layout">
+
+  <div class="col">
+  <section class="fade">
+    <div class="label">
+      Experience
+      <svg class="doodle" viewBox="0 0 18 18" aria-hidden="true"><path d="M10 1.5 L 4.5 10 L 8.5 10 L 7 16.5 L 13.5 7.5 L 9.5 7.5 Z"/></svg>
+    </div>
+
+    <div class="item">
+      <div class="role">Product Manager Intern <span class="at">@ Marriott International</span></div>
+      <p>Figuring out who actually stays at hotels and why. Building AI tools like <a href="https://news.marriott.com/news/2026/06/16/marriott-international-introduces-ask-bonvoy-a-new-ai-powered-search-experience-transforming-travel-exploration" target="_blank" rel="noopener">Ask Bonvoy</a> so planning a trip stops feeling like homework.</p>
+    </div>
+
+    <div class="item">
+      <div class="role">Product &amp; Student Community Manager (Contract) <span class="at">@ Adobe</span></div>
+      <p>Empowering students around the world to make things they're proud of with Adobe Express.</p>
+    </div>
+
+    <div class="item">
+      <div class="role">Claude Ambassador <span class="at">@ Anthropic</span></div>
+      <p>Co-founded UCLA's first inclusive AI community. Students who build with Claude instead of just talking about it.</p>
+    </div>
+
+    <div class="item">
+      <div class="role">Product Manager (Contract) <span class="at">@ Uber</span></div>
+      <p>Launched autonomous Uber Eats delivery at UCLA. Yes, the little sidewalk robots.</p>
+    </div>
+
+    <div class="item">
+      <div class="role">Product Manager Intern <span class="at">@ Luma</span></div>
+      <p>Worked on event discovery, helping people find the events &amp; communities worth showing up for.</p>
+    </div>
+  </section>
+  </div><!-- /.col -->
+
+  <div class="col">
+  <section class="fade">
+    <div class="label">
+      Projects
+      <svg class="doodle" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1.5 C 9.5 5.5, 12.5 8.5, 16.5 9 C 12.5 9.5, 9.5 12.5, 9 16.5 C 8.5 12.5, 5.5 9.5, 1.5 9 C 5.5 8.5, 8.5 5.5, 9 1.5 Z"/></svg>
+    </div>
+
+    <div class="item">
+      <div class="role"><a href="https://sarasi-rout.github.io/autogrant-landing/" target="_blank" rel="noopener">AutoGrant</a></div>
+      <p>Building tailored tech solutions that help nonprofits escape the grant paperwork grind, for free. Started with one climate nonprofit &amp; grew from there.</p>
+    </div>
+  </section>
+
+  <section class="fade">
+    <div class="label">
+      Leadership
+      <svg class="doodle" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 16.5 L 4 2 M4 2.5 C 8 0.5, 11 4.5, 15 2.5 L 15 9 C 11 11, 8 7, 4 9"/></svg>
+    </div>
+
+    <div class="item">
+      <div class="role">Founding Director of Professional Development <span class="at">@ <a href="https://productspaceatucla.org/for-students" target="_blank" rel="noopener">UCLA Product Space</a></span></div>
+      <p>Building the mentorship &amp; career programming that helps students break into product.</p>
+    </div>
+  </section>
+
+  <section class="fade">
+    <div class="label">
+      Off the clock
+      <svg class="doodle" viewBox="0 0 18 18" aria-hidden="true"><path d="M9 1.5 C 13.5 1.2, 16.8 5, 16.5 9.3 C 16.2 13.6, 12.8 16.8, 8.7 16.5 C 4.6 16.2, 1.4 12.8, 1.6 8.7 C 1.8 4.8, 5 1.8, 9 1.5 Z M6 7.2 l 0.1 0.8 M12 7.2 l 0.1 0.8 M5.8 11 q 3.2 3 6.4 0.3"/></svg>
+    </div>
+
+    <div class="stage-box" id="stageBox" tabindex="0" role="button" aria-label="Stick figure acting out hobbies. Click to see the next one.">
+      <svg class="stage act-run" id="stage" viewBox="0 0 240 110" aria-hidden="true">
+
+        <!-- ground scribble -->
+        <path class="prop-line" d="M6 88 q 30 -3 60 0 t 60 0.5 t 60 -1 t 48 0.5" opacity="0.5"/>
+
+        <!-- running track: second lane line, lane dashes, finish flag -->
+        <g class="prop prop-track">
+          <path class="prop-line" d="M6 100 q 30 -3 60 0 t 60 0.5 t 60 -1 t 48 0.5" opacity="0.7"/>
+          <path class="prop-line" d="M14 94 l 12 0 M46 94 l 12 0 M78 94 l 12 0 M110 94 l 12 0 M142 94 l 12 0 M174 94 l 12 0 M206 94 l 12 0" opacity="0.7"/>
+          <path class="prop-line" d="M226 88 L 226 64 M226 64 l 10 3.5 l -10 3.5"/>
+        </g>
+
+        <!-- rock slope -->
+        <g class="prop prop-rock">
+          <path class="prop-line" d="M118 88 C 140 80, 152 62, 168 48 C 182 36, 198 26, 226 18 M150 70 l 8 3 M178 44 l 8 3 M200 30 l 8 3"/>
+        </g>
+
+        <!-- pickleball net -->
+        <g class="prop prop-net">
+          <path class="prop-line" d="M182 88 L 182 62 M158 88 L 206 88 M164 66 L 200 66 M164 66 L 164 86 M200 66 L 200 86 M164 73 L 200 73 M164 80 L 200 80 M172 66 L 172 86 M181 66 L 181 86 M190 66 L 190 86"/>
+        </g>
+
+        <!-- clothing rack -->
+        <g class="prop prop-rack">
+          <path class="prop-line" d="M158 88 L 158 40 M222 88 L 222 40 M154 40 L 226 40 M168 40 q -2 8 5 8 l 10 0 l 1 22 q 0 3 -3 3 l -6 0 q -3 0 -3 -3 Z M196 40 q -2 8 5 8 l 10 0 l 1 20 q 0 3 -3 3 l -6 0 q -3 0 -3 -3 Z"/>
+        </g>
+
+        <!-- pickleball -->
+        <g class="prop prop-ball">
+          <circle class="prop-line" cx="80" cy="40" r="3.5"/>
+        </g>
+
+        <g class="figv figv-run"><g class="run-move"><g transform="translate(64,20)"><path class="draw" d="M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z"/><path class="draw" d="M24 16 q 3.5 3 7 0.5" stroke-width="2"/><path class="draw" d="M27 23 C 26.5 30, 27.5 38, 26.8 46"/><path class="draw" d="M26.8 32 C 22 36, 18 40, 15 45"><animateTransform attributeName="transform" type="rotate" values="-26 26.8 32;30 26.8 32;-26 26.8 32" dur="0.26s" repeatCount="indefinite"/></path><path class="draw" d="M27 32 C 32 36, 36 40, 39 45"><animateTransform attributeName="transform" type="rotate" values="30 27 32;-26 27 32;30 27 32" dur="0.26s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 23 53, 20 59, 17.5 66"><animateTransform attributeName="transform" type="rotate" values="30 26.8 46;-26 26.8 46;30 26.8 46" dur="0.26s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66"><animateTransform attributeName="transform" type="rotate" values="-26 26.8 46;30 26.8 46;-26 26.8 46" dur="0.26s" repeatCount="indefinite"/></path></g></g></g>
+        <g class="figv figv-hike"><g class="hike-move"><g transform="translate(64,20) rotate(4 27 40)"><g class="hike-bob"><path class="prop-line" d="M22.5 27 q -8 0 -8.5 7 l 0.5 8 q 0.5 5 6 5 l 4 0.5 M15.5 32 l 9 1"/><path class="draw" d="M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z"/><path class="draw" d="M24 16 q 3.5 3 7 0.5" stroke-width="2"/><path class="draw" d="M27 23 C 26.5 30, 27.5 38, 26.8 46"/><path class="draw" d="M26.8 32 C 22 36, 18 40, 15 45"><animateTransform attributeName="transform" type="rotate" values="-26 26.8 32;30 26.8 32;-26 26.8 32" dur="0.7s" repeatCount="indefinite"/></path><path class="draw" d="M27 32 C 32 36, 36 40, 39 45"><animateTransform attributeName="transform" type="rotate" values="30 27 32;-26 27 32;30 27 32" dur="0.7s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 23 53, 20 59, 17.5 66"><animateTransform attributeName="transform" type="rotate" values="30 26.8 46;-26 26.8 46;30 26.8 46" dur="0.7s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66"><animateTransform attributeName="transform" type="rotate" values="-26 26.8 46;30 26.8 46;-26 26.8 46" dur="0.7s" repeatCount="indefinite"/></path></g></g></g></g>
+        <g class="figv figv-climb"><g class="climb-move"><g transform="translate(64,20) rotate(-38 27 35)"><path class="draw" d="M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z"/><path class="draw" d="M24 16 q 3.5 3 7 0.5" stroke-width="2"/><path class="draw" d="M27 23 C 26.5 30, 27.5 38, 26.8 46"/><path class="draw" d="M27 32 C 32 36, 36 40, 39 45"><animateTransform attributeName="transform" type="rotate" values="-150 27 32;-105 27 32;-150 27 32" dur="0.9s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 32 C 22 36, 18 40, 15 45"><animateTransform attributeName="transform" type="rotate" values="30 26.8 32;60 26.8 32;30 26.8 32" dur="0.9s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 23 53, 20 59, 17.5 66"><animateTransform attributeName="transform" type="rotate" values="24 26.8 46;-6 26.8 46;24 26.8 46" dur="0.9s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66"><animateTransform attributeName="transform" type="rotate" values="-6 26.8 46;24 26.8 46;-6 26.8 46" dur="0.9s" repeatCount="indefinite"/></path></g></g></g>
+        <g class="figv figv-pickle"><g transform="translate(50,20)"><g class="pickle-bob"><path class="draw" d="M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z"/><path class="draw" d="M24 16 q 3.5 3 7 0.5" stroke-width="2"/><path class="draw" d="M27 23 C 26.5 30, 27.5 38, 26.8 46"/><path class="draw" d="M26.8 32 C 22 36, 18 40, 15 45"/><g><animateTransform attributeName="transform" type="rotate" values="6 27 32;6 27 32;-60 27 32;45 27 32;6 27 32" keyTimes="0;0.55;0.7;0.82;1" dur="1.5s" repeatCount="indefinite"/><path class="draw" d="M27 32 C 32 36, 36 40, 39 45"/><path class="prop-line" d="M39 45 L 43 40 M43.5 33.5 a 5.5 6.5 40 1 0 0.1 0"/></g><path class="draw" d="M26.8 46 C 23 53, 20 59, 17.5 66"><animateTransform attributeName="transform" type="rotate" values="8 26.8 46;8 26.8 46;-10 26.8 46;8 26.8 46" keyTimes="0;0.55;0.75;1" dur="1.5s" repeatCount="indefinite"/></path><path class="draw" d="M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66"/></g></g></g>
+        <g class="figv figv-thrift"><g transform="translate(54,20)"><g><animateTransform attributeName="transform" type="rotate" values="0 27 22;9 27 22;9 27 22;0 27 22" keyTimes="0;0.3;0.6;1" dur="2.4s" repeatCount="indefinite"/><path class="draw" d="M27 4 C 33 3.5, 37.5 8, 37 14 C 36.5 19.5, 31.5 23, 26.5 22.5 C 21 22, 17.5 17.5, 18 12.5 C 18.5 7.5, 22 4.5, 27 4 Z"/><path class="draw" d="M24 16 q 3.5 3 7 0.5" stroke-width="2"/></g><path class="draw" d="M27 23 C 26.5 30, 27.5 38, 26.8 46"/><path class="draw" d="M26.8 32 C 22 36, 18 40, 15 45"/><g transform="rotate(-50 27 32)"><path class="draw" d="M27 32 C 32 36, 36 40, 39 45"/></g><g><animateTransform attributeName="transform" type="rotate" values="-3 45 31;4 45 31;-3 45 31" dur="2.4s" repeatCount="indefinite"/><path class="prop-line" d="M45 31 q 3 -3 5.5 -0.5 M45 31 l 0 3.5 M45 34.5 l -10 5 l 20 0 Z M38 39.5 l -2.2 13.5 q -0.4 3 2.6 3 l 13.5 0 q 3 0 2.6 -3 l -2.2 -13.5"/></g><path class="draw" d="M26.8 46 C 23 53, 20 59, 17.5 66"/><path class="draw" d="M26.8 46 C 30.5 53, 33.5 59.5, 35.5 66"/></g></g>
+      </svg>
+      <div class="caption">catch me <span class="act-name" id="actName">running</span> &nbsp;·&nbsp; click</div>
+    </div>
+    <p class="hobby-fallback">Running, backpacking, rock scrambling, pickleball, and thrifting &amp; upcycling clothes.</p>
+  </section>
+  </div><!-- /.col -->
+
+  </div><!-- /.layout -->
+
+  <footer class="fade">
+    <a href="mailto:sarasirout2028@gmail.com">Email</a>
+    <a href="https://www.linkedin.com/in/sarasir/" target="_blank" rel="noopener">LinkedIn</a>
+    <a href="https://github.com/sarasi-rout" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://x.com/sarasiroutt" target="_blank" rel="noopener">X</a>
+    <span class="copyright">&copy; 2026 Sarasi Rout</span>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var stage = document.getElementById('stage');
+  var box = document.getElementById('stageBox');
+  var nameEl = document.getElementById('actName');
+  if (!stage || !box) return;
+
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) return;
+
+  var acts = [
+    { cls: 'act-run',    name: 'running' },
+    { cls: 'act-hike',   name: 'backpacking' },
+    { cls: 'act-climb',  name: 'rock scrambling' },
+    { cls: 'act-pickle', name: 'playing pickleball' },
+    { cls: 'act-thrift', name: 'thrifting' }
+  ];
+  var i = 0;
+  var timer = null;
+
+  function setAct(idx) {
+    i = idx % acts.length;
+    stage.setAttribute('class', 'stage ' + acts[i].cls);
+    nameEl.textContent = acts[i].name;
+  }
+
+  function next() { setAct(i + 1); }
+
+  function schedule() {
+    clearInterval(timer);
+    timer = setInterval(next, 5000);
+  }
+
+  box.addEventListener('click', function () { next(); schedule(); });
+  box.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      next();
+      schedule();
+    }
+  });
+
+  schedule();
+})();
+</script>
+</body>
+</html>
