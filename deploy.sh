@@ -14,14 +14,10 @@ echo "→ Creating repo (if needed) and pushing..."
 if ! gh repo view "$OWNER/$REPO" &>/dev/null; then
   gh repo create "$REPO" --public --source=. --remote=origin --push
 else
-  git push -u origin master 2>/dev/null || git push -u origin main
+  git push -u origin main
 fi
 
 echo "→ Enabling GitHub Pages..."
-gh api "repos/$OWNER/$REPO/pages" -X POST \
-  -f build_type=legacy \
-  -f source[branch]=master \
-  -f source[path]=/ 2>/dev/null || \
 gh api "repos/$OWNER/$REPO/pages" -X POST \
   -f build_type=legacy \
   -f source[branch]=main \
